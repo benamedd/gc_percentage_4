@@ -1,5 +1,3 @@
- ## 3. app.py (Version PWA optimisée)
-```python
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -156,3 +154,4 @@ def create_mobile_optimized_ui():
 # Utilisation de l'interface optimisée
 create_mobile_optimized_ui()
 ```
+
