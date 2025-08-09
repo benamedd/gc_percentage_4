@@ -1,8 +1,3 @@
-﻿# Étape 1: Installer les packages nécessaires
-!pip -q install streamlit plotly pandas pyngrok
-
-# Étape 2: Créer le fichier de l'application
-%%writefile app.py
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -411,46 +406,3 @@ if sequence_input:
 
 else:
     st.info("Collez votre séquence DNA (A/T/G/C/N) ou un FASTA pour commencer l'analyse.")
-
-# Étape 3: Configuration de ngrok (optionnelle - pour un accès public)
-# Vous devez avoir un compte ngrok et un authtoken
-# from pyngrok import ngrok
-# ngrok.set_auth_token("YOUR_NGROK_TOKEN")  # Remplacez par votre token
-
-# Étape 4: Lancer l'application Streamlit
-import subprocess
-import threading
-import time
-from IPython.display import display, HTML
-
-def run_streamlit():
-    subprocess.run(["streamlit", "run", "app.py", "--server.port", "8501", "--server.headless", "true"])
-
-# Lancer Streamlit dans un thread séparé
-thread = threading.Thread(target=run_streamlit)
-thread.daemon = True
-thread.start()
-
-# Attendre que le serveur démarre
-time.sleep(10)
-
-# Option 1: Utiliser ngrok pour un accès public (nécessite un token ngrok)
-try:
-    from pyngrok import ngrok
-    # Décommentez et ajoutez votre token ngrok si vous voulez un accès public
-    # ngrok.set_auth_token("YOUR_NGROK_TOKEN")
-    public_url = ngrok.connect(8501)
-    print(f"Application accessible à: {public_url}")
-    display(HTML(f'<a href="{public_url}" target="_blank">Cliquez ici pour accéder à votre application DNA Sequence Statistics</a>'))
-except:
-    # Option 2: Accès local uniquement
-    print("Application Streamlit lancée sur le port 8501")
-    print("Dans Colab, vous pouvez utiliser la commande suivante dans une nouvelle cellule:")
-    print("!curl http://localhost:8501")
-    
-# Garder l'application en vie
-try:
-    while True:
-        time.sleep(30)
-except KeyboardInterrupt:
-    print("Application arrêtée")
