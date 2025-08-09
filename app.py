@@ -153,5 +153,3 @@ def create_mobile_optimized_ui():
 
 # Utilisation de l'interface optimisée
 create_mobile_optimized_ui()
-```
-
