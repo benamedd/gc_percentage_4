@@ -1,4 +1,4 @@
-import streamlit as st
+ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -9,7 +9,7 @@ import math
 # Configuration PWA
 st.set_page_config(
     page_title="DNA Sequence Statistics Calculator",
-    page_icon="??",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="collapsed",  # Optimisé pour mobile
     menu_items={
