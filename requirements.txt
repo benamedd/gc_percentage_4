@@ -1,6 +1,7 @@
-streamlit>=1.28,<1.30
-plotly>=5.17,<5.20
-pandas>=2.0,<2.2
+streamlit
+plotly
+pandas
+
 
 
 
