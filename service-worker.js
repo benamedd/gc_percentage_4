@@ -1,69 +1,65 @@
- ## 2. service-worker.js
-```javascript
-const CACHE_NAME = 'dna-calculator-v1';
+const CACHE_NAME = 'dna-calculator-v2'; // ⚠️ Change à chaque update pour forcer le refresh
 const urlsToCache = [
-  '/',
-  '/static/css/',
-  '/static/js/',
+  '/', // page principale
+  '/manifest.json',
+  '/192x192.png',
+  '/512x512.png',
   'https://cdn.jsdelivr.net/npm/streamlit@1.28.1/',
   'https://cdn.plot.ly/plotly-latest.min.js'
 ];
 
 // Installation du Service Worker
-self.addEventListener('install', function(event) {
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(function(cache) {
-        console.log('Cache ouvert');
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then(cache => {
+      console.log('📦 Cache ouvert et ajout des fichiers');
+      return cache.addAll(urlsToCache);
+    })
   );
+  self.skipWaiting(); // Prend la main immédiatement
 });
 
 // Activation du Service Worker
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(function(cacheNames) {
+    caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.map(function(cacheName) {
+        cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
-            console.log('Suppression du cache ancien:', cacheName);
+            console.log('🗑 Suppression ancien cache :', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     })
   );
+  self.clients.claim(); // Contrôle immédiat des pages
 });
 
-// Interception des requ�tes r�seau
-self.addEventListener('fetch', function(event) {
+// Interception des requêtes
+self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Cache hit - return response
-        if (response) {
-          return response;
+    caches.match(event.request).then(response => {
+      // Retourne depuis le cache si dispo
+      if (response) {
+        return response;
+      }
+
+      // Sinon, on va sur le réseau
+      return fetch(event.request).then(networkResponse => {
+        // Vérifie la validité de la réponse
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          return networkResponse;
         }
 
-        return fetch(event.request).then(
-          function(response) {
-            // Check if we received a valid response
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
+        // Clone et met en cache la réponse
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, responseToCache);
+        });
 
-            var responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then(function(cache) {
-                cache.put(event.request, responseToCache);
-              });
-
-            return response;
-          }
-        );
-      }
-    )
+        return networkResponse;
+      });
+    })
   );
 });
