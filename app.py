@@ -43,7 +43,7 @@ def inject_pwa_code():
       e.preventDefault();
       deferredPrompt = e;
       const btn = document.createElement('button');
-      btn.textContent = '?? Installer l\\'application';
+      btn.textContent = '📲 Installer l\\'application';
       btn.style.cssText = `
         position: fixed; top: 10px; right: 10px; z-index: 1000;
         background: #4CAF50; color: white; border: none;
@@ -203,7 +203,7 @@ def compute_tm(seq):
 # -----------------------
 # UI layout
 # -----------------------
-st.title("?? DNA Sequence Calculator — PWA ready")
+st.title("🧬 DNA Sequence Calculator — PWA ready")
 
 col1, col2 = st.columns([1, 1])
 
@@ -217,10 +217,10 @@ with col1:
     btn = st.button("Analyser")
 
 with col2:
-    #st.subheader("Options")
-    #window = st.number_input("Fenêtre pour GC-skew (bp)", min_value=10, max_value=10000, value=201, step=2)
-    #show_plots = st.checkbox("Afficher graphiques", value=True)
-    #download_report = st.checkbox("Préparer CSV pour téléchargement", value=True)
+    st.subheader("Options")
+    window = st.number_input("Fenêtre pour GC-skew (bp)", min_value=10, max_value=10000, value=201, step=2)
+    show_plots = st.checkbox("Afficher graphiques", value=True)
+    download_report = st.checkbox("Préparer CSV pour téléchargement", value=True)
 
 # -----------------------
 # Process input when user clicks
