@@ -1,22 +1,22 @@
-const CACHE_NAME = 'dna-calculator-v2'; // ⚠️ Change à chaque update pour forcer le refresh
+const CACHE_NAME = 'dna-calculator-v3'; // Change à chaque mise à jour
 const urlsToCache = [
   '/', // page principale
   '/manifest.json',
   '/192x192.png',
-  '/512x512.png',
-  'https://cdn.jsdelivr.net/npm/streamlit@1.28.1/',
-  'https://cdn.plot.ly/plotly-latest.min.js'
+  '/512x512.png'
 ];
 
 // Installation du Service Worker
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('📦 Cache ouvert et ajout des fichiers');
-      return cache.addAll(urlsToCache);
+      console.log('📦 Cache ouvert');
+      return Promise.allSettled(
+        urlsToCache.map(url => cache.add(url).catch(err => console.warn('⚠️ Ressource non cachée :', url, err)))
+      );
     })
   );
-  self.skipWaiting(); // Prend la main immédiatement
+  self.skipWaiting(); // Active le SW immédiatement
 });
 
 // Activation du Service Worker
@@ -33,32 +33,31 @@ self.addEventListener('activate', event => {
       );
     })
   );
-  self.clients.claim(); // Contrôle immédiat des pages
+  self.clients.claim(); // Contrôle immédiat des pages ouvertes
 });
 
 // Interception des requêtes
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
-      // Retourne depuis le cache si dispo
       if (response) {
-        return response;
+        return response; // Retourne depuis le cache
       }
 
-      // Sinon, on va sur le réseau
+      // Sinon va chercher sur le réseau et met en cache si possible
       return fetch(event.request).then(networkResponse => {
-        // Vérifie la validité de la réponse
-        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type === 'opaque') {
           return networkResponse;
         }
 
-        // Clone et met en cache la réponse
         const responseToCache = networkResponse.clone();
         caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, responseToCache);
         });
 
         return networkResponse;
+      }).catch(() => {
+        // Ici tu peux renvoyer une page offline par défaut
       });
     })
   );
