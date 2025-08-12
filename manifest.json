@@ -1,10 +1,16 @@
- {
+{
   "name": "DNA Sequence Calculator",
   "short_name": "DNA Calc",
+  "description": "A DNA sequence GC content calculator with offline support",
+  "id": "com.example.dnacalc",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#4CAF50",
   "theme_color": "#4CAF50",
+  "lang": "en",
+  "dir": "ltr",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/192x192.png",
