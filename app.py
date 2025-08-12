@@ -58,9 +58,9 @@ def inject_pwa_code():
     });
     </script>
 
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#4CAF50">
-   <link rel="manifest" href="https://raw.githubusercontent.com/benamedd/gc_percentage_4/main/manifest.json">
+   <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4CAF50">
+
     """
     st.components.v1.html(pwa_code, height=0)
 
