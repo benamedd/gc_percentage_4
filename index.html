@@ -1,78 +1,74 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Outil bioinformatique avancé pour calculer le pourcentage GC et analyser des séquences ADN." />
-    <meta name="theme-color" content="#4CAF50" />
-    
-    <title>GC% Bioinformatique - Analyse ADN</title>
-    
-    <!-- Lien vers le manifeste PWA -->
-    <link rel="manifest" href="/manifest.json" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Icônes PWA -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/192x192.png" />
-    <link rel="apple-touch-icon" href="/512x512.png" />
+    <!-- SEO & App Info -->
+    <title>Bioinfo App - GC Calculator</title>
+    <meta name="description" content="Application bioinformatique de haute qualité pour le calcul et l'analyse GC.">
+    <meta name="theme-color" content="#2E7D32">
 
-    <!-- Bootstrap pour un design responsive -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- PWA Essentials -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" sizes="192x192" href="192x192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="512x512.png">
 
+    <!-- Styles -->
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to bottom, #f4fdf4, #e3f2e1);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f8f9fa;
+            color: #333;
+            text-align: center;
         }
         header {
-            background-color: #4CAF50;
+            background: #2E7D32;
             color: white;
+            padding: 1rem;
+            font-size: 1.5rem;
+        }
+        main {
             padding: 2rem;
-            text-align: center;
-        }
-        .btn-launch {
-            background-color: #4CAF50;
-            color: white;
-            font-size: 1.2rem;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-        }
-        .btn-launch:hover {
-            background-color: #45a049;
         }
         footer {
-            text-align: center;
+            background: #eee;
             padding: 1rem;
-            background: #4CAF50;
-            color: white;
-            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
         }
     </style>
 </head>
 <body>
+
     <header>
-        <h1>Analyse Bioinformatique GC%</h1>
-        <p>Outil avancé pour calculer le pourcentage GC des séquences ADN</p>
+        🧬 Bioinfo App - GC Calculator
     </header>
 
-    <main class="container text-center my-5">
-        <p class="lead">
-            Cette application vous permet de calculer rapidement le pourcentage de GC d’une séquence ADN 
-            et d’obtenir des visualisations interactives. Parfait pour chercheurs, étudiants et bioinformaticiens.
-        </p>
-        <a href="https://gc-percentage-4-12.onrender.com" class="btn btn-launch">🚀 Lancer l’application</a>
+    <main>
+        <h1>Analyseur de séquences ADN</h1>
+        <p>Bienvenue dans votre application bioinformatique de calcul GC.</p>
+        <p>Cette application peut fonctionner hors ligne et être installée sur votre appareil.</p>
+
+        <!-- Zone pour intégrer ton app Streamlit ou JS -->
+        <div id="app">
+            <p>Chargement de l'application...</p>
+        </div>
     </main>
 
     <footer>
-        &copy; 2025 - Bioinformatique GC% | PWA prête pour installation
+        © 2025 Bioinfo App | Développé pour la recherche en génomique
     </footer>
 
-    <!-- Service Worker Registration -->
+    <!-- Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
-                .then(() => console.log("✅ Service Worker enregistré"))
-                .catch(err => console.error("❌ Erreur SW:", err));
+                .then(reg => console.log('✅ Service Worker enregistré', reg))
+                .catch(err => console.error('❌ Erreur SW', err));
         }
     </script>
+
 </body>
 </html>
