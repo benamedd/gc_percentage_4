@@ -3,7 +3,7 @@
   "short_name": "GC Calc",
   "id": "gc-percentage-calculator",
   "description": "A progressive web app to calculate the GC content of DNA sequences.",
-  "start_url": "/?source=pwa",
+  "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -23,3 +23,4 @@
     }
   ]
 }
+
