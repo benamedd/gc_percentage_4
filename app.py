@@ -43,7 +43,7 @@ def inject_pwa_code():
       e.preventDefault();
       deferredPrompt = e;
       const btn = document.createElement('button');
-      btn.textContent = '📲 Installer l\\'application';
+      btn.textContent = '?? Installer l\\'application';
       btn.style.cssText = `
         position: fixed; top: 10px; right: 10px; z-index: 1000;
         background: #4CAF50; color: white; border: none;
@@ -60,7 +60,7 @@ def inject_pwa_code():
 
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#4CAF50">
-    <link rel="apple-touch-icon" href="/icon-192.png">
+   <link rel="manifest" href="https://raw.githubusercontent.com/benamedd/gc_percentage_4/main/manifest.json">
     """
     st.components.v1.html(pwa_code, height=0)
 
@@ -203,7 +203,7 @@ def compute_tm(seq):
 # -----------------------
 # UI layout
 # -----------------------
-st.title("🧬 DNA Sequence Calculator — PWA ready")
+st.title("?? DNA Sequence Calculator — PWA ready")
 
 col1, col2 = st.columns([1, 1])
 
