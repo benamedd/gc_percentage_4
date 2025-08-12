@@ -1,16 +1,15 @@
 {
   "name": "DNA Sequence Calculator",
   "short_name": "DNA Calc",
-  "description": "Analyse et calcul de statistiques sur les séquences ADN, incluant le GC%, GC-skew et d'autres outils bioinformatiques.",
-  "id": "dna-sequence-calculator",
+  "id": "gc-percentage-app",
+  "description": "Une application web progressive pour calculer le pourcentage GC et d'autres statistiques sur les séquences ADN.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#4CAF50",
   "theme_color": "#4CAF50",
-  "lang": "fr",
-  "dir": "ltr",
+  "lang": "fr-FR",
   "icons": [
     {
       "src": "/192x192.png",
