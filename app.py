@@ -203,7 +203,7 @@ def compute_tm(seq):
 # -----------------------
 # UI layout
 # -----------------------
-st.title("?? DNA Sequence Calculator — PWA ready")
+st.title("DNA Sequence Calculator — PWA ready")
 
 col1, col2 = st.columns([1, 1])
 
