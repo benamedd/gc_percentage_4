@@ -1,26 +1,20 @@
 {
-  "name": "GC Percentage Calculator",
-  "short_name": "GC Calc",
-  "id": "gc-percentage-calculator",
-  "description": "A progressive web app to calculate the GC content of DNA sequences.",
-  "start_url": "/index.html",
-  "scope": "/",
+  "name": "Bioinfo App - GC Calculator",
+  "short_name": "Bioinfo GC",
+  "start_url": "/gc_percentage_4/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
-  "orientation": "portrait",
-  "lang": "en",
   "icons": [
     {
-      "src": "/192x192.png",
+      "src": "/gc_percentage_4/192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/512x512.png",
+      "src": "/gc_percentage_4/512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ]
 }
-
