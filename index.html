@@ -5,75 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧬 Bioinfo App - GC Calculator</title>
 
-    <!-- Couleur de thème -->
     <meta name="theme-color" content="#4CAF50">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="192x192.png" type="image/png">
+    <link rel="apple-touch-icon" href="512x512.png">
 
-    <!-- Manifest pour PWA -->
-    <link rel="manifest" href="/manifest.json">
-
-    <!-- Icônes -->
-    <link rel="icon" href="/192x192.png" type="image/png">
-    <link rel="apple-touch-icon" href="/512x512.png">
-
-    <!-- Styles simples -->
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        #app {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        iframe {
-            flex: 1;
-            border: none;
-            width: 100%;
-        }
-        footer {
-            text-align: center;
-            padding: 0.5rem;
-            font-size: 0.8rem;
-            background-color: #eaeaea;
-        }
+        body { margin:0; font-family:Arial,sans-serif; background-color:#f5f7fa; color:#333; display:flex; flex-direction:column; height:100vh;}
+        header { background-color:#4CAF50; color:white; padding:1rem; text-align:center; font-size:1.5rem; font-weight:bold;}
+        #app { flex:1; display:flex; flex-direction:column;}
+        iframe { flex:1; border:none; width:100%;}
+        footer { text-align:center; padding:0.5rem; font-size:0.8rem; background-color:#eaeaea;}
     </style>
 </head>
 <body>
 
-    <header>🧬 Bioinfo App - GC Calculator</header>
+<header>🧬 Bioinfo App - GC Calculator</header>
 
-    <div id="app">
-        <iframe src="https://gc-percentage-4-9.onrender.com" title="Bioinfo App"></iframe>
-    </div>
+<div id="app">
+    <iframe src="https://gc-percentage-4-9.onrender.com" title="Bioinfo App"></iframe>
+</div>
 
-    <footer>
-        © 2025 Bioinfo App | Développé pour la recherche en génomique
-    </footer>
+<footer>© 2025 Bioinfo App | Développé pour la recherche en génomique</footer>
 
-    <!-- Enregistrement du Service Worker -->
-    <script>
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => {
-                navigator.serviceWorker.register("/service-worker.js")
-                    .then(reg => console.log("✅ Service Worker enregistré", reg.scope))
-                    .catch(err => console.log("❌ Erreur SW :", err));
-            });
-        }
-    </script>
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js")
+            .then(reg => console.log("✅ Service Worker enregistré", reg.scope))
+            .catch(err => console.log("❌ Erreur SW :", err));
+    });
+}
+</script>
 
 </body>
 </html>
