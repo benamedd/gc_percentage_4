@@ -3,65 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🧬 Bioinfo GC – Analyse ADN</title>
+  <title>ًں§¬ Bioinfo GC â€“ Analyse ADN</title>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#4CAF50">
   <link rel="icon" href="/192x192.png" type="image/png">
   <link rel="apple-touch-icon" href="/512x512.png">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-    header {
-      background: #4CAF50;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    #app {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 0.5rem;
-    }
-    iframe {
-      flex: 1;
-      border: none;
-      width: 100%;
-    }
-    footer {
-      text-align: center;
-      padding: 0.5rem;
-      font-size: 0.8rem;
-      background: #eaeaea;
-    }
-    @media (max-width: 768px) {
-      header { font-size: 1.2rem; }
-      #app { padding: 0; }
-    }
+    body { margin:0; font-family: Arial,sans-serif; background:#f5f7fa; color:#333; display:flex; flex-direction:column; height:100vh;}
+    header { background:#4CAF50; color:white; padding:1rem; text-align:center; font-size:1.5rem; font-weight:bold;}
+    #app { flex:1; display:flex; flex-direction:column; padding:0.5rem;}
+    iframe { flex:1; border:none; width:100%;}
+    footer { text-align:center; padding:0.5rem; font-size:0.8rem; background:#eaeaea;}
+    @media (max-width:768px) { header { font-size:1.2rem;} #app { padding:0;} }
   </style>
 </head>
 <body>
-  <header>🧬 Bioinfo GC – Analyse ADN</header>
+  <header>ًں§¬ Bioinfo GC â€“ Analyse ADN</header>
   <div id="app">
     <iframe src="https://gc-percentage-4-9.onrender.com" title="Bioinfo App"></iframe>
   </div>
-  <footer>© 2025 Bioinfo App | Recherche en génomique</footer>
-
+  <footer>آ© 2025 Bioinfo App | Recherche en gأ©nomique</footer>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
-          .then(reg => console.log('✅ Service Worker enregistré', reg.scope))
-          .catch(err => console.log('❌ Erreur SW:', err));
+          .then(reg => console.log('âœ… Service Worker enregistrأ©', reg.scope))
+          .catch(err => console.log('â‌Œ Erreur SW:', err));
       });
     }
   </script>
