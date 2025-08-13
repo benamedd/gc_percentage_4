@@ -1,8 +1,9 @@
 {
-  "name": "DNA Sequence Statistics Calculator",
-  "short_name": "DNA Stats",
-  "description": "Analyze DNA sequences quickly and offline using this PWA.",
+  "name": "Bioinfo App - GC Calculator",
+  "short_name": "Bioinfo GC",
+  "description": "Application bioinformatique pour analyser les séquences ADN et calculer le pourcentage GC.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
