@@ -337,7 +337,8 @@ if btn:
 
 # Footer / debug
 st.markdown("---")
-#st.markdown("Développé pour PWA — assurez-vous que `manifest.json`, `service-worker.js`, `icon-192.png` et `icon-512.png` sont à la racine du repo.")
+
 
 # End of file
+
 
