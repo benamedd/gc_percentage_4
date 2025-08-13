@@ -14,7 +14,7 @@ import base64
 # -----------------------
 st.set_page_config(
     page_title="DNA Sequence Statistics Calculator",
-    page_icon="icon-192.png",
+    page_icon="192x192.png",
     layout="wide",
     initial_sidebar_state="collapsed",
     menu_items={
@@ -308,3 +308,4 @@ if btn:
 
         st.subheader("Aperçu de la séquence (nettoyée)")
         st.code(seq[:1000] + ("..." if len(seq) > 1000 else ""))
+
