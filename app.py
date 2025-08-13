@@ -14,7 +14,7 @@ import base64
 # -----------------------
 st.set_page_config(
     page_title="DNA Sequence Statistics Calculator",
-    page_icon="icon-192.png",  # icône locale à placer à la racine du repo
+    page_icon="icon-192.png",
     layout="wide",
     initial_sidebar_state="collapsed",
     menu_items={
@@ -25,10 +25,8 @@ st.set_page_config(
 )
 
 def inject_pwa_code():
-    # Injecte manifest + enregistrement service worker + bouton d'installation
     pwa_code = """
     <script>
-    // Enregistrement du Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/service-worker.js')
@@ -37,13 +35,12 @@ def inject_pwa_code():
       });
     }
 
-    // beforeinstallprompt pour custom install button
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
       const btn = document.createElement('button');
-      btn.textContent = '?? Installer l\\'application';
+      btn.textContent = '📥 Installer l\\'application';
       btn.style.cssText = `
         position: fixed; top: 10px; right: 10px; z-index: 1000;
         background: #4CAF50; color: white; border: none;
@@ -58,25 +55,20 @@ def inject_pwa_code():
     });
     </script>
 
-   <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#4CAF50">
-
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
     """
     st.components.v1.html(pwa_code, height=0)
 
 inject_pwa_code()
 
 # -----------------------
-# Helper functions for sequence stats
+# Helper functions
 # -----------------------
 def clean_sequence(text):
-    """
-    Accept FASTA or raw sequence, return uppercase sequence with only A,T,G,C,N.
-    """
     if not text:
         return ""
     text = text.strip()
-    # Remove FASTA header if present
     if text.startswith(">"):
         lines = text.splitlines()
         lines = [ln for ln in lines if not ln.startswith(">")]
@@ -84,7 +76,6 @@ def clean_sequence(text):
     else:
         seq = text.replace("\n", "").replace(" ", "")
     seq = seq.upper()
-    # Keep only ATGCN
     seq = re.sub(r'[^ATGCN]', '', seq)
     return seq
 
@@ -115,10 +106,6 @@ def at_content(seq):
     return at
 
 def gc_skew(seq, window=100):
-    """
-    Return list of (pos_center, skew) where skew = (G - C) / (G + C) in sliding window.
-    If G + C == 0 => skew = 0
-    """
     seq = seq.upper()
     n = len(seq)
     positions = []
@@ -134,7 +121,7 @@ def gc_skew(seq, window=100):
         c = w.count('C')
         denom = g + c
         skew = (g - c) / denom if denom != 0 else 0.0
-        positions.append(i + 1)  # 1-based
+        positions.append(i + 1)
         skews.append(skew)
     return positions, skews
 
@@ -165,13 +152,11 @@ def cpg_oe(seq):
     return oe
 
 def shannon_entropy(seq, k=1):
-    # For k=1 mononucleotide entropy
     seq = seq.upper()
     n = len(seq)
     if n == 0:
         return 0.0
     counts = Counter(seq)
-    # keep only ATGC
     total = sum(counts[b] for b in 'ATGC')
     if total == 0:
         return 0.0
@@ -183,7 +168,6 @@ def shannon_entropy(seq, k=1):
     return H
 
 def longest_run(seq, base):
-    # longest consecutive run of a base
     pattern = f'({base}+)'
     runs = re.findall(pattern, seq.upper())
     if not runs:
@@ -191,7 +175,6 @@ def longest_run(seq, base):
     return max(len(r) for r in runs)
 
 def compute_tm(seq):
-    # Simple Wallace rule: Tm = 2*(A+T) + 4*(G+C) for short sequences
     counts = base_counts(seq)
     at = counts['A'] + counts['T']
     gc = counts['G'] + counts['C']
@@ -223,7 +206,7 @@ with col2:
     download_report = st.checkbox("Préparer CSV pour téléchargement", value=True)
 
 # -----------------------
-# Process input when user clicks
+# Process input
 # -----------------------
 if btn:
     seq = clean_sequence(seq_input)
@@ -242,7 +225,6 @@ if btn:
         longest_C = longest_run(seq, 'C')
         di_freqs, di_total = dinucleotide_freq(seq)
 
-        # Summary metrics
         st.header("Résultats")
         metrics_col1, metrics_col2, metrics_col3 = st.columns(3)
         metrics_col1.metric("Longueur (bp)", counts['total'])
@@ -258,7 +240,6 @@ if btn:
         metrics_col3.metric("Longest G run", longest_G)
         metrics_col3.metric("Longest C run", longest_C)
 
-        # Base composition barplot
         if show_plots:
             comp_fig = px.bar(
                 x=['A','T','G','C','N'],
@@ -268,9 +249,7 @@ if btn:
             )
             st.plotly_chart(comp_fig, use_container_width=True)
 
-            # GC skew plot (sampled for large sequences)
             pos, skews = gc_skew(seq, window=int(window))
-            # downsample for display if too long
             max_points = 2000
             if len(pos) > max_points:
                 step = max(1, len(pos)//max_points)
@@ -285,7 +264,6 @@ if btn:
             skew_fig.update_layout(title=f'GC skew (window={window} bp)', xaxis_title='Position (bp)', yaxis_title='Skew')
             st.plotly_chart(skew_fig, use_container_width=True)
 
-            # Dinucleotide frequencies table
             di_df = pd.DataFrame(
                 [(k, v[0], v[1]) for k, v in sorted(di_freqs.items())],
                 columns=['Dinucleotide','Count','Frequency']
@@ -293,7 +271,6 @@ if btn:
             st.subheader("Fréquences dinucléotidiques")
             st.dataframe(di_df)
 
-        # Prepare CSV download
         if download_report:
             data = {
                 'Metric': [
@@ -309,14 +286,12 @@ if btn:
             }
             df_metrics = pd.DataFrame(data)
 
-            # dinuc table appended
             if di_total > 0:
                 di_table = pd.DataFrame([(k, v[0], v[1]) for k, v in sorted(di_freqs.items())],
                                         columns=['Dinucleotide','Count','Frequency'])
             else:
                 di_table = pd.DataFrame(columns=['Dinucleotide','Count','Frequency'])
 
-            # Create Excel-like CSVs concatenated or create a single zip? We'll create a single CSV with a separator section
             buf = io.StringIO()
             buf.write("# Metrics\n")
             df_metrics.to_csv(buf, index=False)
@@ -331,15 +306,5 @@ if btn:
                 mime="text/csv"
             )
 
-        # show a small sample of the cleaned sequence and first 200 bp
         st.subheader("Aperçu de la séquence (nettoyée)")
         st.code(seq[:1000] + ("..." if len(seq) > 1000 else ""))
-
-# Footer / debug
-st.markdown("---")
-
-
-# End of file
-
-
-
